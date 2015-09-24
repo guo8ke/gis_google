@@ -1,0 +1,91 @@
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<script type="text/javascript" src="http://maps.google.cn/maps/api/js?sensor=false"></script>
+<!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>-->
+
+</head>
+<body>
+ <div id="map_canvas" style="width:100%; height:100%">
+</body>
+
+<script type="text/javascript">
+
+		var latlng = new google.maps.LatLng(22.2966938018799,114.169319152832);
+		var myOptions = {
+			zoom: 19,
+			center: latlng,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+		//var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+
+
+		var marker = new google.maps.Marker({
+		    position: latlng,//坐标咯
+		    title:"Hello World!",//在pc中鼠标悬停时候显示的 提示
+		    //animation:google.maps.Animation.BOUNCE,//标记跳起来了
+		    //icon:'http://pic.c-ctrip.com/h5/hotel/hotel-map-locate2.png'//自定义的图片标记
+
+		});		
+		//marker.setMap(map);
+
+
+		
+		google.maps.event.addListener(marker, 'click', function() {  
+		    alert("Hello World!");
+		    map.setZoom(18);  
+		    map.setCenter(marker.getPosition());  
+		});  
+
+
+		var infowindow = new google.maps.InfoWindow({
+			content:"Hello World!"
+		});
+
+		//infowindow.open(map,marker);
+		
+
+		//实例化Geocoder服务  
+        var geocoder = new google.maps.Geocoder();  
+        //1.地理解析过程  
+        //请求数据GeocoderRequest为address，值为'贵阳'  
+        geocoder.geocode({ address: '香港新太阳广场' }, function geoResults(results, status) {  
+            //这里是回掉函数(即结果处理函数)  
+            //状态为Ok说明有结果  
+            if (status == google.maps.GeocoderStatus.OK) {  
+                //一般情况下会有多个结果        
+                //第一个结果为最佳匹配的结果（匹配地名最全的结果），这里只去第一个，其他的可以根据需要自己循环出来29.        //格式化过后的地址  
+                //alert('地理解析结果：' + results[0].formatted_address);  
+
+
+                console.log(results[0]);
+
+
+                //geometry是一个包含bounds（界限），location（纬度/经度坐标）,location_type和viewport（视图范围）  
+                //获取解析后的经纬度    
+                //alert('地理解析结果：' + results[0].geometry.location);  
+            }  
+            else {  
+                //alert("：error " + status);  
+            }  
+        });  
+
+
+
+        var panorama = new google.maps.StreetViewPanorama(
+			document.getElementById('map_canvas'), {
+				position: latlng,
+				pov: {
+					heading: 34,
+					pitch: 10
+				}
+			});
+		//map.setStreetView(panorama);
+
+
+
+
+
+</script>
+</html>
